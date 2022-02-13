@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './Cart.css'
 const Cart = (props) => {
     const cart = props.cart;
     console.log(cart);
@@ -16,7 +16,7 @@ const Cart = (props) => {
     const tax = totalPrice / 12;
     const taxValue = Math.floor(tax);
     return (
-        <div>
+        <div className='cart'>
             <h3>Order Summary</h3>
             <p>Items ordered:{cart.length}</p>
             <p><small>Product Price:{totalPrice}</small></p>
