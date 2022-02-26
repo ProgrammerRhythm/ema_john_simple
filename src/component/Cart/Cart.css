@@ -1,3 +1,11 @@
 .cart{
    text-align: center;
 }
+.main-btn{
+   width: 150px;
+   padding: 7px;
+   background-color: rgba(255, 201, 66, 0.94);
+   border: 1px solid black;
+   border-radius: 5px;
+   cursor: pointer;
+}

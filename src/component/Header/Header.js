@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; 
 import logo from '../../images/logo.png';
 import './Header.css'
 const Header = () => {
@@ -8,7 +8,7 @@ const Header = () => {
             <nav>
                 <a href="/shop">Shop</a>
                 <a href="/review">Order Revied</a>
-                <a href="/manage">Manage Inventory here</a>
+                <a href="/inventory">Manage Inventory here</a>
             </nav>
         </div>
     );
