@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import fakeData from '../../fakeData/products';
-import { getDatabaseCart } from '../../utilities/databaseManager';
+import { getDatabaseCart, removeFromDatabaseCart } from '../../utilities/databaseManager';
+import Cart from '../Cart/Cart';
 import ReviewItems from '../ReviewItems/ReviewItems';
+import { Link } from 'react-router-dom';
 
 const Review = () => {
     const [cart, setCart] = useState([]);
+    const handleRemove = (key) => {
+         console.log(key);
+         const newCart = cart.filter(pd => pd.key !== key)
+         setCart(newCart)
+         removeFromDatabaseCart(key)
+    }
     useEffect(() => {
         const savedCart = getDatabaseCart();
         const productKeys = Object.keys(savedCart);
@@ -17,11 +25,19 @@ const Review = () => {
         setCart(cartProduct);
     },[])
     return (
-        <div> 
-            <h1 style={{textAlign: 'center'}}>Cart Product Review</h1>
+        <div className="shop-container">
+            <div className="product-container">
             {
-                cart.map(p => <ReviewItems key={p.key} cart={p}></ReviewItems>)
+                cart.map(p => <ReviewItems remove={handleRemove} key={p.key} cart={p}></ReviewItems>)
             }
+            </div>
+            <div className="cart-container">
+                 <Cart  cart={cart}>
+                 <Link to="/inventory">
+                    <button className="main-btn">Order Now</button>
+                </Link>
+                 </Cart>
+            </div>
         </div>
     );  
 };

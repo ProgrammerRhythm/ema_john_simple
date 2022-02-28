@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import fakeData from "../../fakeData/products";
-import { addToDatabaseCart } from "../../utilities/databaseManager";
+import { addToDatabaseCart, getDatabaseCart } from "../../utilities/databaseManager";
 import Cart from "../Cart/Cart";
+import { Link } from 'react-router-dom';
 import Product from "../Product/Product";
 import './shop.css'
 const Shop = () => {
@@ -12,12 +13,33 @@ const Shop = () => {
     const first20 = fakeData.slice(num1,num2);
     const [products, setProducts] = useState(first20)
     const [cart,setCart] = useState([])
+    useEffect(() => {
+        const saveCart = getDatabaseCart();
+        const ProductKeys = Object.keys(saveCart);
+        const previousCart = ProductKeys.map(pdkey => {
+            const product = fakeData.find(key => key.key === pdkey);
+            return product
+        })
+        setCart(previousCart);
+        console.log(previousCart);
+    },[])
+
     const handleAdded = (product) =>{
-        // console.log('Product Added', product);
-        const newCart = [...cart, product]
+        const ptb = product.key;
+        const sameProduct = cart.find(pd => pd.key === ptb)
+        let count = 1;
+        let newCart = [];
+        if (sameProduct) {
+            count = sameProduct.quantity+1;
+            sameProduct.quantity = count;
+            const other = cart.filter(pd => pd.key !== ptb)
+            newCart = [...other,sameProduct]
+        }
+        else{
+            product.quantity = 1;
+            newCart = [...cart,product]
+        }
         setCart(newCart)
-        const sameProduct = newCart.filter(pd => pd.key === product.key)
-        const count = sameProduct.length;
         addToDatabaseCart(product.key, count);
     }
     return (
@@ -31,7 +53,11 @@ const Shop = () => {
                 
            </div>
            <div className="cart-container">
-               <Cart cart={cart} amnei={setProducts}></Cart>
+               <Cart cart={cart} amnei={setProducts}>
+                <Link to="/review">
+                    <button className="main-btn">Review Items</button>
+                </Link>
+               </Cart>
            </div>
 
            
