@@ -1,9 +1,9 @@
 import React from 'react';
-import order from '../../images/giphy.gif'
+
 const inventory = () => {
     return (
-        <div>
-            <img src={order} alt="" />
+        <div style={{textAlign:'center', fontSize:'50px',color:'red',fontWeight:'bold',marginTop:'290px'}}>
+            <h1>Comeing Soon!</h1>
         </div>
     );
 };
