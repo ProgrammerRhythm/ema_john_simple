@@ -5,14 +5,13 @@ import Cart from '../Cart/Cart';
 import ReviewItems from '../ReviewItems/ReviewItems';
 // import { Link } from 'react-router-dom';
 import order from '../../images/giphy.gif'
+import { useNavigate } from 'react-router-dom';
 const Review = () => {
+    const history = useNavigate();
     const [cart, setCart] = useState([]);
     const [orderedPlaced, SerOrder] = useState(false);
-    const handlePlaceOrder = () => {
-        setCart([])
-        SerOrder(true)
-        processOrder()
-        
+    const handleProceedOrder = () => {
+        history('/shipment')
     }
     const handleRemove = (key) => {
          console.log(key);
@@ -45,7 +44,7 @@ const Review = () => {
             </div>
             <div className="cart-container">
                  <Cart  cart={cart}>
-                    <button onClick={() => handlePlaceOrder()} className="main-btn">Order Now</button>
+                    <button onClick={() => handleProceedOrder()} className="main-btn">Proceed to Order</button>
                  </Cart>
             </div>
         </div>

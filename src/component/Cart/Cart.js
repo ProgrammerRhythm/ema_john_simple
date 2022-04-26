@@ -4,11 +4,7 @@ import './Cart.css'
 const Cart = (props) => {
     const cart = props.cart;
     // console.log(cart);
-    let totalPrice = 0;
-    for (let i = 0; i < cart.length; i++) {
-        const element = cart[i];
-        totalPrice = totalPrice + element.price * element.quantity;
-    }
+    const totalPrice = cart.reduce((total, prd) => total+prd.price,0)
     const total = Math.ceil(totalPrice)
     let shiping = 0;
     if(total>400 || total>200){
@@ -18,8 +14,8 @@ const Cart = (props) => {
         shiping = 40.03;
     }
 
-    const tax = total / 12;
-    const taxValue = Math.floor(tax);
+    const tax = total / 12 || 0;
+    const taxValue = Math.floor(tax) || 0;
     return (
         <div className='cart'>
             <h3>Order Summary</h3>
